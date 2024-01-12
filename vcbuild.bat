@@ -152,7 +152,7 @@ SET "file=features\support\env-win.rb"
 if exist "%file%" goto env-exist
 SETLOCAL ENABLEDELAYEDEXPANSION
 SET "line=require 'aruba/cucumber'"
-ECHO !line! >"%file%"
+ECHO  line# >"%file%"
 SET "line=require 'rbconfig'"
 ECHO !line! >>"%file%"
 SET "line=Before do"
@@ -174,8 +174,8 @@ bundle exec cucumber
 goto success
 
 :env-exist
-SET /a Line#ToSearch=7
-(FOR /f "tokens=1*delims=:" %%a IN ('findstr /n "^" "%file%"') DO (
+SET /a Line ToSearch=7
+(FOR /f "tokens=1 delims=:" %%a IN ('findstr /n "^" "%file%"') DO (
     SET "Line=%%b"
     IF %%a equ %Line#ToSearch% SET "Line=%Replacement%"
     SETLOCAL ENABLEDELAYEDEXPANSION
@@ -209,3 +209,4 @@ EXIT /B 1
 
 :success
 EXIT /B 0
+ 
